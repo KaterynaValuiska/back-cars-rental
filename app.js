@@ -24,6 +24,10 @@ app.use("/api/cars", carsRouter);
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message });
+});
 
 app.listen(5000, () => {
   console.log("Example app listening on port 5000!");
